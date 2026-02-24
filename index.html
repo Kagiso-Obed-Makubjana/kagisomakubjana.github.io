@@ -1,10 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kagiso Makubjana | Cloud Security Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<!DOCTYPE html>
+<body>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Kagiso Makubjana</h1>
+      <p class="tagline">IT Support Technician • Aspiring SOC Analyst • Cloud Security</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn primary">View Projects</a>
+        <a href="mailto:Deepercreatives@email.com?subject=CV Request" class="btn secondary">Request My CV</a>
+        <a href="#medium" class="btn secondary">My Medium</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#medium">Blog</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>
+      IT Support Technician with 5+ years of experience in Active Directory,
+      networking, and cybersecurity operations. Passionate about cloud security,
+      SIEM monitoring, and SOC analysis. Currently expanding skills in Terraform
+      and Microsoft Azure security.
+    </p>
+  </section>
+
+  <section id="skills" class="section">
     <h2>Core Skills</h2>
     <div class="skills-grid">
       <span>Active Directory</span>
@@ -44,16 +79,53 @@
     </div>
   </section>
 
+  <!-- ================= MEDIUM BLOG SECTION ================= -->
+  <section id="medium" class="section">
+    <h2>Latest From My Medium</h2>
+    <p style="opacity:0.8;margin-bottom:25px;">Live feed from @deepercreatives</p>
+
+    <div id="medium-feed" class="projects-grid"></div>
+  </section>
+
   <section id="contact" class="section">
     <h2>Contact</h2>
     <p>📧 Email: <a href="mailto:Deepercreatives@email.com">Deepercreatives@email.com</a></p>
-    <p>💼 LinkedIn: <a href="#">https://www.linkedin.com/in/kagiso-makubjana-52531a146/</a></p>
+    <p>💼 LinkedIn: <a href="https://www.linkedin.com/in/kagiso-makubjana-52531a146/" target="_blank">View LinkedIn Profile</a></p>
     <p class="contact-note">Recruiters: Email me to receive my full CV.</p>
   </section>
 
   <footer>
     <p>© 2026 Kagiso Makubjana • Cloud Security Portfolio</p>
   </footer>
+
+  <!-- ================= MEDIUM AUTO-FEED SCRIPT ================= -->
+  <script>
+    const mediumUsername = "@deepercreatives";
+    const feedUrl = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/${mediumUsername}`;
+
+    fetch(feedUrl)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("medium-feed");
+        const posts = data.items.slice(0, 6);
+
+        posts.forEach(post => {
+          const card = document.createElement("div");
+          card.className = "project-card";
+
+          card.innerHTML = `
+            <h3>${post.title}</h3>
+            <p>${post.description.replace(/<[^>]+>/g, '').slice(0, 120)}...</p>
+            <a href="${post.link}" target="_blank">Read Article →</a>
+          `;
+
+          container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.log("Medium feed error", err);
+      });
+  </script>
 
 </body>
 </html>
